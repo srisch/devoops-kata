@@ -1,0 +1,15 @@
+version: '3'
+services:
+  puppet:
+    container_name: puppet
+    hostname: puppet
+    image: puppet/puppetserver
+    ports:
+      - 8140:8140
+    volumes:
+      - ./code:/etc/puppetlabs/code/environments/production/manifests
+
+networks:
+  default:
+    external:
+      name: puppet
