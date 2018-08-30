@@ -1,12 +1,21 @@
 - hosts: devoops
   remote_user: ubuntu
+  become: yes
   tasks:
-    - name: Install the package "nginx"
+    - name: Install the packages
       apt:
-        name: nginx
-      become: yes
-    - name: Ensure nginx is running
+        name: ["python-pip", "python-dev", "nginx", "gunicorn"]
+        state: present
+    - name: Ensure NGINX is running
       service:
         name: nginx
         state: started
-      become: yes
+    # Install Flask
+    - name: Pip install Flask
+      pip:
+        name: flask
+        state: present
+    - name: Spinup Gunicorn
+      gunicorn:
+        app: 'app'
+        chdir: '/var/www/html'

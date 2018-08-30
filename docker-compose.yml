@@ -9,3 +9,5 @@ services:
       - "2222:22"
     volumes:
       - ~/.ssh/id_rsa.pub:/home/ubuntu/.ssh/authorized_keys
+      - ./nginx/conf:/etc/nginx/conf
+      - ./nginx/web:/var/www/html
