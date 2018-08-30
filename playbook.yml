@@ -2,10 +2,15 @@
   remote_user: ubuntu
   become: yes
   tasks:
+
     - name: Install the packages
       apt:
         name: ["python-pip", "python-dev", "nginx", "gunicorn"]
         state: present
+    - name: Copy NGINX
+      copy:
+        src: ./nginx/conf/default
+        dest: /etc/nginx/sites-available/
     - name: Ensure NGINX is running
       service:
         name: nginx
@@ -16,6 +21,6 @@
         name: flask
         state: present
     - name: Spinup Gunicorn
-      gunicorn:
-        app: 'app'
+      command: gunicorn --daemon --bind 0.0.0.0:5000 wsgi:app
+      args:
         chdir: '/var/www/html'
