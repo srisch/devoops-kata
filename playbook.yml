@@ -2,11 +2,12 @@
   remote_user: ubuntu
   become: yes
   tasks:
-
+    # Install Packages
     - name: Install the packages
       apt:
         name: ["python-pip", "python-dev", "nginx", "gunicorn"]
         state: present
+      # Nginx Configuration
     - name: Copy NGINX
       copy:
         src: ./nginx/conf/default
@@ -24,3 +25,11 @@
       command: gunicorn --daemon --bind 0.0.0.0:5000 wsgi:app
       args:
         chdir: '/var/www/html'
+    - name: Install MongoDb
+      apt:
+        name: mongodb
+        state: present
+    - name: Ensure Mongodb Service Up
+      service:
+        name: mongodb
+        state: started
