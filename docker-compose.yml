@@ -1,15 +1,11 @@
 version: '3'
 services:
-  puppet:
-    container_name: puppet
-    hostname: puppet
-    image: puppet/puppetserver
+  ansible:
+    container_name: ansible_test
+    hostname: ansible_test
+    image: philm/ansible_target
     ports:
-      - 8140:8140
+      - "8080:80"
+      - "2222:22"
     volumes:
-      - ./code:/etc/puppetlabs/code/environments/production/manifests
-
-networks:
-  default:
-    external:
-      name: puppet
+      - ~/.ssh/id_rsa.pub:/home/ubuntu/.ssh/authorized_keys
