@@ -6,4 +6,5 @@
 
 #### Instructions
 * launch terminal and head to repo folder & run `docker-compose up -d`
-* pending
+* run `ansible-playbook -i inventory playbook.yml` to configure vm
+* browse to localhost:8080
