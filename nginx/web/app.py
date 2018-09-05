@@ -1,12 +1,13 @@
 from flask import Flask
-import subprocess
+import os
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    mongo = subprocess.Popen(['service','mongodb','status'], stdout=subprocess.PIPE)
-    stdout = mongo.communicate()[0]
-    return 'Mongo Status %s' % stdout
+    mongo = os.popen("ps aux | grep [m]ongo | awk '{print$2}'").read()
+    nginx = os.popen("ps aux | grep [n]ginx | awk '{print$2}'").read()
+    guni = os.popen("ps aux | grep [g]unicorn | awk '{print$2}'").read()
+    return 'Mongo Proccess ID %s' % mongo
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

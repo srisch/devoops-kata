@@ -2,6 +2,11 @@
   remote_user: ubuntu
   become: yes
   tasks:
+    #Locale Fixes for Mongodb
+    - name: Set Locale
+      command: locale-gen en_US.UTF-8
+    - name: Update Locale
+      command: update-locale
     # Install Packages
     - name: Install the packages
       apt:
@@ -26,14 +31,6 @@
       command: gunicorn --daemon --bind 0.0.0.0:5000 wsgi:app
       args:
         chdir: '/var/www/html'
-      #Locale Fixes for Mongodb
-    - name: Set Locale
-      command: locale-gen en_US.UTF-8
-    - name: Update Locale
-      command: update-locale
-      #Start Mongodb Service
-    - name: Ensure Mongodb Service Up
-      service:
-        name: mongodb
-        enabled: yes
-        state: running
+        #Start Mongodb
+    - name: Start Mongo
+      command: mongod --fork --logpath=/var/log/mongodb/mongo.log --logappend
