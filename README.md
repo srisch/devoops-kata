@@ -11,9 +11,10 @@ Stack consists of  nginx / flask & gunicorn / mongodb
 
 #### Next Steps
 * css styling, red / green
-* separate services on different containers
+* separate services into different containers
 * pull something from mongodb
 * fix mongodb service
+* something like cachethq with api reporting to a server since if nginx or gunicorn fails you can't see the status of the db 
 
 
 # Configuration Management Kata
