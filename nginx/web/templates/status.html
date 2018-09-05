@@ -1,5 +1,17 @@
 <!doctype html>
 <title>Mongo Process</title>
+{% if nginx %}
   <h1>Nginx Process {{ nginx }}</h1>
+{% else %}
+    <h1> Nginx Down</h1>
+{% endif %}
+{% if mongo %}
   <h1>Mongo Process {{ mongo }}</h1>
+  {% else %}
+  <h1>Mongo Down!</h1> 
+{% endif %}
+{% if guni %}
   <h1>Gunicorn Process {{ guni }}</h1>
+  {% else %}
+  <h1> You won't be able to see this</h1>
+{% endif %}
